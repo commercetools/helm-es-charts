@@ -200,6 +200,19 @@ updateStrategy: RollingUpdate
 # of your pods to be unavailable during maintenance
 maxUnavailable: 1
 
+# This allows to create an HPA (only) for clients
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 1
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 50
+
 podSecurityContext:
   fsGroup: 1000
   runAsUser: 1000
