@@ -18,7 +18,10 @@ spec:
   selector:
     matchLabels:
       app: "{{ template "elasticsearch.uname" . }}"
+  # because of https://github.com/helm/helm/issues/7090      
+  {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicas }}
+  {{- end }}      
   podManagementPolicy: {{ .Values.podManagementPolicy }}
   updateStrategy:
     type: {{ .Values.updateStrategy }}
